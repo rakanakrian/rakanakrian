@@ -1,231 +1,293 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RAKANAKRIAN - สั่งซื้อแพ็กเกจ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAKANAKRIAN</title>
+
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #100d18;
-  color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef5ff;
+    color: #222;
 }
-header {
-  text-align: center;
-  padding: 28px 15px;
-  background: #211633;
+
+.header {
+    background: #1976d2;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    border-radius: 0 0 20px 20px;
 }
-header h1 { color: #c9a5ff; margin: 0; }
-.container { max-width: 900px; margin: auto; padding: 20px; }
-h2 { color: #d6baff; }
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 15px;
+
+.header h1 {
+    font-size: 34px;
+    margin: 0 0 25px;
 }
+
+.header p {
+    font-size: 22px;
+    margin: 5px;
+}
+
+.header small {
+    font-size: 17px;
+}
+
+.container {
+    max-width: 750px;
+    margin: auto;
+    padding: 20px;
+}
+
+.section-title {
+    color: #28699f;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 5px 0 15px;
+}
+
+.packages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
 .card {
-  background: #241d30;
-  border: 1px solid #594276;
-  border-radius: 14px;
-  padding: 18px;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 3px 10px #00000008;
 }
-.price { color: #d6baff; font-size: 22px; font-weight: bold; }
+
+.card h2 {
+    margin: 5px 0 20px;
+    font-size: 23px;
+}
+
+.price {
+    color: #2879b9;
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.duration {
+    color: #777;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
 button {
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 14px;
-  cursor: pointer;
-  font-weight: bold;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    width: 100%;
+    font-size: 17px;
+    cursor: pointer;
 }
-.add { background: #a978ee; color: #160d20; width: 100%; }
-.action { background: #a978ee; color: #160d20; }
-.remove { background: #513b62; color: white; }
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0 14px;
-  border-radius: 8px;
-  border: 1px solid #69527e;
-  background: #17111f;
-  color: white;
+
+button:hover {
+    background: #125da8;
 }
+
+.cart-title {
+    font-size: 25px;
+    color: #28699f;
+    font-weight: bold;
+    margin: 25px 0 15px;
+}
+
 .cart {
-  background: #241d30;
-  padding: 18px;
-  border-radius: 14px;
-  margin-top: 25px;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
 }
+
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #51415f;
-  padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
-.qty { display: flex; align-items: center; gap: 8px; }
-.total { font-size: 23px; color: #d6baff; font-weight: bold; }
+
+.total {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+.total-price {
+    color: #2879b9;
+    font-weight: bold;
+}
+
+.checkout {
+    margin-top: 20px;
+}
+
+@media(max-width: 400px) {
+    .packages {
+        gap: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 22px;
+    }
+}
 </style>
 </head>
 
 <body>
-<header>
-  <h1>RAKANAKRIAN</h1>
-  <p>เลือกแพ็กเกจที่ต้องการได้หลายรายการ</p>
-</header>
+
+<div class="header">
+    <h1>RAKANAKRIAN</h1>
+    <p>ร้านจำหน่ายแพ็กเกจออนไลน์</p>
+    <small>เลือกได้หลายแพ็กเกจในคำสั่งซื้อเดียว</small>
+</div>
 
 <div class="container">
-  <h2>เลือกแพ็กเกจ</h2>
-  <div class="products" id="products"></div>
 
-  <div class="cart">
-    <h2>🛒 ตะกร้าสินค้า</h2>
-    <div id="cartItems">ยังไม่มีสินค้า</div>
-    <p>ยอดรวม: <span class="total" id="total">0 บาท</span></p>
+    <div class="section-title">
+        แพ็กเกจแนะนำ
+    </div>
 
-    <h2>ข้อมูลผู้สั่งซื้อ</h2>
-    <form id="orderForm">
-      <label>ชื่อผู้สั่งซื้อ</label>
-      <input id="customer" required placeholder="ชื่อของคุณ">
+    <div class="packages">
 
-      <label>เบอร์โทรศัพท์</label>
-      <input id="phone" required type="tel" placeholder="เบอร์โทรศัพท์">
+        <div class="card">
+            <h2>Basic</h2>
+            <div class="price">99 บาท</div>
+            <div class="duration">แพ็กเกจ 1 เดือน</div>
 
-      <label>LINE ID</label>
-      <input id="line" placeholder="LINE ID">
+            <button onclick="addCart('Basic', 99)">
+                เพิ่มลงตะกร้า
+            </button>
+        </div>
 
-      <label>หมายเหตุ</label>
-      <textarea id="note" placeholder="รายละเอียดเพิ่มเติม"></textarea>
+        <div class="card">
+            <h2>Premium</h2>
+            <div class="price">449 บาท</div>
+            <div class="duration">แพ็กเกจ 6 เดือน</div>
 
-      <button class="action" type="submit">
-        ยืนยันคำสั่งซื้อ
-      </button>
-    </form>
-    <div id="result"></div>
-  </div>
+            <button onclick="addCart('Premium', 449)">
+                เพิ่มลงตะกร้า
+            </button>
+        </div>
+
+    </div>
+
+    <div class="cart-title">
+        🛒 ตะกร้าสินค้า
+    </div>
+
+    <div class="cart" id="cart">
+        <p style="color:#999;text-align:center;">
+            ยังไม่มีสินค้าในตะกร้า
+        </p>
+    </div>
+
+    <div class="total">
+        <span>ยอดรวม</span>
+        <span class="total-price" id="total">0 บาท</span>
+    </div>
+
+    <div class="checkout">
+        <button onclick="checkout()">
+            สั่งซื้อสินค้า
+        </button>
+    </div>
+
 </div>
 
 <script>
-// แก้ชื่อแพ็กเกจและราคาได้ตรงนี้
-const packages = [
-  { id: 1, name: "แพ็กเกจ Basic", detail: "ใช้งาน 1 เดือน", price: 99 },
-  { id: 2, name: "แพ็กเกจ Standard", detail: "ใช้งาน 3 เดือน", price: 249 },
-  { id: 3, name: "แพ็กเกจ Premium", detail: "ใช้งาน 6 เดือน", price: 449 },
-  { id: 4, name: "แพ็กเกจ VIP", detail: "ใช้งาน 12 เดือน", price: 799 }
-];
 
-let cart = {};
+let cart = [];
 
-function showProducts() {
-  document.getElementById("products").innerHTML =
-    packages.map(p => `
-      <div class="card">
-        <h3>${p.name}</h3>
-        <p>${p.detail}</p>
-        <p class="price">${p.price.toLocaleString()} บาท</p>
-        <button class="add" onclick="addToCart(${p.id})">
-          เพิ่มลงตะกร้า
-        </button>
-      </div>
-    `).join("");
+function addCart(name, price) {
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    renderCart();
+
 }
 
-function addToCart(id) {
-  cart[id] = (cart[id] || 0) + 1;
-  showCart();
+function renderCart() {
+
+    let cartElement = document.getElementById("cart");
+    let totalElement = document.getElementById("total");
+
+    cartElement.innerHTML = "";
+
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartElement.innerHTML =
+        '<p style="color:#999;text-align:center;">ยังไม่มีสินค้าในตะกร้า</p>';
+    }
+
+    cart.forEach((item, index) => {
+
+        total += item.price;
+
+        cartElement.innerHTML += `
+            <div class="cart-item">
+                <span>${item.name}</span>
+                <span>
+                    ${item.price} บาท
+                    <span onclick="removeCart(${index})"
+                    style="color:red;cursor:pointer;"> ✕ </span>
+                </span>
+            </div>
+        `;
+
+    });
+
+    totalElement.innerText = total.toLocaleString() + " บาท";
+
 }
 
-function changeQty(id, amount) {
-  cart[id] = (cart[id] || 0) + amount;
-  if (cart[id] <= 0) delete cart[id];
-  showCart();
+function removeCart(index) {
+
+    cart.splice(index, 1);
+    renderCart();
+
 }
 
-function showCart() {
-  const items = Object.entries(cart);
-  const box = document.getElementById("cartItems");
+function checkout() {
 
-  if (items.length === 0) {
-    box.innerHTML = "ยังไม่มีสินค้า";
-  } else {
-    box.innerHTML = items.map(([id, qty]) => {
-      const p = packages.find(x => x.id == id);
-      return `
-        <div class="cart-item">
-          <div>
-            <b>${p.name}</b><br>
-            ${p.price.toLocaleString()} บาท
-          </div>
-          <div class="qty">
-            <button class="remove" onclick="changeQty(${id},-1)">−</button>
-            ${qty}
-            <button class="action" onclick="changeQty(${id},1)">+</button>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
+    if (cart.length === 0) {
+        alert("กรุณาเลือกแพ็กเกจก่อนครับ");
+        return;
+    }
 
-  document.getElementById("total").textContent =
-    getTotal().toLocaleString() + " บาท";
+    alert("ขอบคุณที่สั่งซื้อสินค้า ยอดรวม " +
+    document.getElementById("total").innerText);
+
 }
 
-function getTotal() {
-  return Object.entries(cart).reduce((sum, [id, qty]) => {
-    const p = packages.find(x => x.id == id);
-    return sum + p.price * qty;
-  }, 0);
-}
-
-document.getElementById("orderForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  if (Object.keys(cart).length === 0) {
-    alert("กรุณาเลือกแพ็กเกจก่อนสั่งซื้อ");
-    return;
-  }
-
-  const order = {
-    customer: document.getElementById("customer").value,
-    phone: document.getElementById("phone").value,
-    line: document.getElementById("line").value,
-    note: document.getElementById("note").value,
-    items: Object.entries(cart).map(([id, qty]) => {
-      const p = packages.find(x => x.id == id);
-      return {
-        package: p.name,
-        quantity: qty,
-        price: p.price,
-        subtotal: p.price * qty
-      };
-    }),
-    total: getTotal()
-  };
-
-  const summary = [
-    "คำสั่งซื้อ RAKANAKRIAN",
-    "ชื่อ: " + order.customer,
-    "เบอร์: " + order.phone,
-    "LINE: " + order.line,
-    ...order.items.map(i =>
-      `${i.package} x ${i.quantity} = ${i.subtotal} บาท`
-    ),
-    "ยอดรวม: " + order.total + " บาท",
-    "หมายเหตุ: " + order.note
-  ].join("\n");
-
-  document.getElementById("result").innerHTML =
-    "<h3>สรุปคำสั่งซื้อ</h3><pre></pre>";
-  document.querySelector("#result pre").textContent = summary;
-
-  navigator.clipboard?.writeText(summary);
-});
-
-showProducts();
-showCart();
 </script>
+
 </body>
 </html>
